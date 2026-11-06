@@ -1,0 +1,175 @@
+<!-- To list one student data -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search Student</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F3E8FF;
+        color: #6A1B9A;
+        margin: 0;
+        padding: 24px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #7B1FA2;
+        font-size: 36px;
+        margin: 16px 0 24px;
+    }
+
+    hr {
+        border: 0;
+        height: 2px;
+        background-color: #D8B4FE;
+        margin: 18px 0;
+    }
+
+    a {
+        display: inline-block;
+        color: #FFFFFF;
+        background-color: #821ED0;
+        text-decoration: none;
+        padding: 12px 16px;
+        margin: 4px 2px;
+        border-radius: 10px;
+    }
+
+    a:hover {
+        background-color: #6A1B9A;
+    }
+
+    input {
+        padding: 12px;
+        width: 220px;
+        max-width: 70%;
+        border: 2px solid #C084FC;
+        border-radius: 8px;
+        background-color: #FFFFFF;
+        color: #4A148C;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #821ED0;
+        box-shadow: 0 0 5px #D8B4FE;
+    }
+
+    button {
+        background-color: #821ED0;
+        color: #FFFFFF;
+        border: none;
+        padding: 12px 20px;
+        margin: 10px 4px;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #6A1B9A;
+    }
+
+    #studentTable {
+        width: 95%;
+        max-width: 1000px;
+        margin: 24px auto;
+        border-collapse: collapse;
+        background-color: #FFFFFF;
+        border: 1px solid #D8B4FE;
+        box-shadow: 0 4px 14px rgba(106, 27, 154, 0.12);
+    }
+
+    #studentTable th {
+        background-color: #821ED0;
+        color: #FFFFFF;
+        padding: 15px 12px;
+        border: 1px solid #D8B4FE;
+    }
+
+    #studentTable td {
+        background-color: #FFFFFF;
+        color: #4A148C;
+        padding: 14px 12px;
+        border: 1px solid #E9D5FF;
+    }
+
+    #studentTable tr:nth-child(even) td {
+        background-color: #F3E8FF;
+    }
+
+    @media (max-width: 700px) {
+        body { padding: 12px; }
+        h1 { font-size: 28px; }
+        #studentTable { width: 100%; font-size: 13px; }
+        #studentTable th, #studentTable td { padding: 8px 5px; }
+        a { padding: 9px 10px; font-size: 14px; }
+    }
+</style>
+</head>
+<body>
+<h1>SEARCH STUDENT</h1>
+<hr>
+<a href="index.html">Home</a> |
+<a href="list.html">List Students</a> |
+<a href="listOne.html">List Required Student</a> |
+<a href="insert.html">Insert Student</a> |
+<a href="update.html">Update Student</a> |
+<a href="delete.html">Delete Student</a>
+<hr>
+
+Student Number
+<input type="number" id="sno">
+<button onclick="searchStudent()">Search</button>
+<br><br>
+
+<table border="1" id="studentTable">
+<tr>
+<th>Student Number</th>
+<th>Name</th>
+<th>Total</th>
+<th>Age</th>
+<th>Phoneno</th>
+</tr>
+</table>
+
+<br>
+<button onclick="location.href='index.html'">Home Page</button>
+
+<script>
+function searchStudent()
+{
+let sno=document.getElementById("sno").value;
+fetch("/students/"+sno)
+.then(response=>response.json())
+.then(data=>{
+if(data.length==0)
+{
+alert("Student Not Found");
+return;
+}
+let table=document.getElementById("studentTable");
+table.innerHTML=`
+<tr>
+<th>Student Number</th>
+<th>Name</th>
+<th>Total</th>
+<th>Age</th>
+<th>Phoneno</th>
+</tr>
+<tr>
+<td>${data[0].student_id}</td>
+<td>${data[0].student_name}</td>
+<td>${data[0].total}</td>
+<td>${data[0].age}</td>
+<td>${data[0].phoneno}</td>
+</tr>
+`;
+});
+}
+</script>
+</body>
+</html>

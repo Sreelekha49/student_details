@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Student</title>
+    <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        min-height: 100vh;
+        padding: 28px 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #F3E8FF;
+        color: #2E1065;
+    }
+    header { text-align: center; margin-bottom: 26px; }
+    h1 {
+        color: #6B21A8;
+        font-size: clamp(1.7rem, 4vw, 2.3rem);
+        margin-bottom: 18px;
+    }
+    nav {
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: 9px; max-width: 1050px; margin: 0 auto;
+    }
+    nav a {
+        display: inline-block; padding: 10px 13px; border-radius: 8px;
+        background: #7E22CE; color: #FFFFFF; text-decoration: none;
+        font-size: .94rem; transition: background .2s ease, transform .2s ease;
+    }
+    nav a:hover { background: #581C87; transform: translateY(-1px); }
+    main {
+        max-width: 760px; margin: 30px auto; padding: 28px;
+        background: #FFFFFF; border: 1px solid #E9D5FF; border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(88, 28, 135, .12);
+    }
+    h2 { color: #6B21A8; margin-bottom: 20px; }
+    label { display: block; color: #4C1D95; font-weight: 600; margin: 0 0 8px; }
+    input {
+        width: 100%; padding: 12px 13px; margin-bottom: 18px;
+        border: 1px solid #C4B5FD; border-radius: 8px;
+        background: #FAF5FF; color: #2E1065; font-size: 1rem;
+    }
+    input:focus { outline: none; border-color: #7E22CE; box-shadow: 0 0 0 3px rgba(126, 34, 206, .14); }
+    button {
+        border: none; border-radius: 8px; padding: 11px 17px;
+        background: #7E22CE; color: #FFFFFF; font-size: 1rem;
+        font-weight: 600; cursor: pointer; transition: background .2s ease, transform .2s ease;
+    }
+    button:hover { background: #581C87; transform: translateY(-1px); }
+    .secondary { background: #E9D5FF; color: #6B21A8; }
+    .secondary:hover { background: #D8B4FE; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+    .table-wrap { width: 100%; overflow-x: auto; }
+    table {
+        width: 100%; border-collapse: collapse; margin: 18px 0;
+        background: #FFFFFF; border-radius: 8px; overflow: hidden;
+    }
+    th { background: #7E22CE; color: #FFFFFF; text-align: left; }
+    th, td { padding: 12px 14px; border: 1px solid #E9D5FF; }
+    tbody tr:nth-child(even), tr:nth-child(even) td { background: #FAF5FF; }
+    tr:hover td { background: #F3E8FF; }
+    @media (max-width: 600px) {
+        body { padding: 20px 10px; }
+        main { padding: 20px 15px; }
+        nav a { font-size: .86rem; padding: 9px 10px; }
+        th, td { padding: 9px; white-space: nowrap; }
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>INSERT STUDENT</h1>
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="list.html">List Students</a>
+            <a href="listOne.html">List Required Student</a>
+            <a href="insert.html">Insert Student</a>
+            <a href="update.html">Update Student</a>
+            <a href="delete.html">Delete Student</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Enter Student Details</h2>
+        <form id="studentForm">
+            <label for="sno">Student Number</label>
+            <input type="number" id="sno" required>
+
+            <label for="name">Student Name</label>
+            <input type="text" id="name" required>
+
+            <label for="total">Total Marks</label>
+            <input type="number" id="total" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" required>
+
+            <label for="phoneno">Phone Number</label>
+            <input type="tel" id="phoneno" required>
+
+            <div class="button-row">
+                <button type="submit">Save Student</button>
+                <button type="button" class="secondary" onclick="location.href='index.html'">Home Page</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById("studentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            saveStudent();
+        });
+
+        function saveStudent() {
+            const sno = document.getElementById("sno").value;
+            const name = document.getElementById("name").value;
+            const total = document.getElementById("total").value;
+            const age = document.getElementById("age").value;
+            const phoneno = document.getElementById("phoneno").value;
+
+            fetch("/students", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    sno: sno,
+                    name: name,
+                    total: total,
+                    age: age,
+                    phoneno: phoneno
+                })
+            })
+            .then(async response => {
+                const message = await response.text();
+                if (!response.ok) throw new Error(message || "Unable to save student.");
+                return message;
+            })
+            .then(message => {
+                alert(message);
+                location.href = "index.html";
+            })
+            .catch(error => alert(error.message));
+        }
+    </script>
+</body>
+</html>

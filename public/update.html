@@ -1,0 +1,168 @@
+<!-- UPDATE STUDENT DETAILS-->
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Update Student</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F3E8FF;
+        color: #4A148C;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        color: #7B1FA2;
+        font-size: 36px;
+        margin: 38px 0 24px;
+    }
+
+    hr {
+        border: none;
+        height: 2px;
+        background-color: #E9D5FF;
+        margin: 18px 0;
+    }
+
+    a {
+        display: inline-block;
+        background-color: #821ED0;
+        color: #FFFFFF;
+        text-decoration: none;
+        padding: 13px 16px;
+        margin: 4px;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    a:hover {
+        background-color: #6A1B9A;
+    }
+
+    input {
+        padding: 11px 12px;
+        width: 220px;
+        max-width: 55%;
+        border: 2px solid #D8B4FE;
+        border-radius: 8px;
+        background-color: #FFFFFF;
+        color: #4A148C;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-left: 10px;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #821ED0;
+        box-shadow: 0 0 5px #D8B4FE;
+    }
+
+    button {
+        background-color: #821ED0;
+        color: #FFFFFF;
+        border: none;
+        padding: 13px 22px;
+        border-radius: 10px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 8px;
+    }
+
+    button:hover {
+        background-color: #6A1B9A;
+    }
+
+    body > input,
+    body > button {
+        margin-top: 6px;
+    }
+
+    @media (max-width: 600px) {
+        h1 { font-size: 28px; }
+        a { padding: 10px; font-size: 14px; }
+        input { width: 180px; }
+    }
+</style>
+
+</head>
+<body>
+<h1>UPDATE STUDENT</h1>
+<hr>
+<a href="index.html">Home</a> |
+<a href="list.html">List Students</a> |
+<a href="listOne.html">List Required Student</a> |
+<a href="insert.html">Insert Student</a> |
+<a href="update.html">Update Student</a> |
+<a href="delete.html">Delete Student</a>
+<hr>
+Student Number
+<input type="number" id="sno">
+<br><br>
+Student Name
+<input type="text" id="name">
+<br><br>
+Total Marks
+<input type="number" id="total">
+<br><br>
+Age
+<input type="number" id="age">
+<br><br>
+Phoneno
+<input type="number" id="phoneno">
+<br><br>
+
+<br><br>
+<button onclick="updateStudent()">Update</button>
+
+<br><br>
+<button onclick="location.href='index.html'">Home Page</button>
+
+<script>
+function updateStudent()
+{
+
+let sno=document.getElementById("sno").value;
+let name=document.getElementById("name").value;
+let total=document.getElementById("total").value;
+
+
+
+fetch("/students/"+sno,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name:name,
+total:total
+})
+})
+.then(response=>{
+if(response.ok)
+return response.text();
+
+return response.text().then(message=>{
+throw new Error(message);
+});
+
+})  //end of .then
+
+.then(message=>{
+alert(message);
+location.href="index.html";
+})
+
+.catch(error=>{
+
+alert(error.message);
+});
+
+}//End of function
+</script>
+</body>
+</html>

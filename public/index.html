@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #F3E8FF;
+            color: #2E1065;
+            padding: 30px 18px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #6B21A8;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 22px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: #7E22CE;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        nav a:hover {
+            background: #581C87;
+            transform: translateY(-1px);
+        }
+
+        main {
+            max-width: 780px;
+            margin: 35px auto;
+            padding: 30px;
+            background: #FFFFFF;
+            border: 1px solid #E9D5FF;
+            border-radius: 18px;
+            box-shadow: 0 10px 28px rgba(88, 28, 135, 0.12);
+        }
+
+        h2 {
+            color: #6B21A8;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6B7280;
+            margin-bottom: 26px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .action-btn {
+            width: 100%;
+            min-height: 58px;
+            border: 1px solid #DDD6FE;
+            border-radius: 10px;
+            padding: 15px 18px;
+            background: #FAF5FF;
+            color: #6B21A8;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease,
+                        transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #7E22CE;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(126, 34, 206, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            color: #6B21A8;
+            font-size: 0.9rem;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 22px 12px;
+            }
+
+            main {
+                padding: 22px 16px;
+            }
+
+            nav a {
+                padding: 9px 11px;
+                font-size: 0.88rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>STUDENT MANAGEMENT</h1>
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="list.html">List Students</a>
+            <a href="listOne.html">List Required Student</a>
+            <a href="insert.html">Insert Student</a>
+            <a href="update.html">Update Student</a>
+            <a href="delete.html">Delete Student</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Student Management Dashboard</h2>
+        <p class="subtitle">Choose an option to manage student records.</p>
+
+        <div class="actions">
+            <button class="action-btn" onclick="location.href='list.html'">
+                1. List Students
+            </button>
+            <button class="action-btn" onclick="location.href='listOne.html'">
+                2. List Required Student
+            </button>
+            <button class="action-btn" onclick="location.href='insert.html'">
+                3. Insert Student
+            </button>
+            <button class="action-btn" onclick="location.href='update.html'">
+                4. Update Student
+            </button>
+            <button class="action-btn" onclick="location.href='delete.html'">
+                5. Delete Student
+            </button>
+        </div>
+    </main>
+
+    <footer>Student Management System</footer>
+</body>
+</html>
